@@ -1,5 +1,12 @@
-XNPV and XIRR
-==============
+XIRR calculator
 
-This module contains python implementations of Microsoft Excel's XNPV and XIRR functions. Please see the docstrings for more info. I will just highlight here one note: the XIRR function uses the numerical solver from the scipy.optimize module. If, however, you do not have scipy installed, this module also contains a quick and dirty implementation of the secant method that works the same as the scipy function when there is an answer but does not fail gracefully when no answer is found. The version of XIRR using the locally defined secant_method is commented out, uncomment to use it.
+To use the calculator, input a series of cashflows like:
+
+2017/1/1 -10000
+2018/1/1 11000
+
+Above example implies on 2017/1/1 you invested 10000, and on 2018/1/1 you received 11000.
+
+Hit Enter on an empty line to complete inputting, and the calculator will then print the result.
+
 

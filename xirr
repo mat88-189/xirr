@@ -1,0 +1,54 @@
+#!/usr/bin/env python
+
+import financial
+import datetime
+
+import fileinput
+
+def usage():
+    print "Input a series of cashflows like: 2018/1/1 1000"
+    print "Press Enter on an empty line to finish"
+    print "-----------------------------------------------"
+
+def printCashflow(cashflows):
+    for d, c in cashflows:
+        print str(d), c
+
+usage()
+
+cashflows = []
+for line in fileinput.input():
+    if line.strip():
+        try:
+           date, cashflow = line.split()
+        except:
+           print "Not a valid data"
+           continue
+
+        try:
+            year, month, day = date.split('/')
+            year = int(year)
+            month = int(month)
+            day = int(day)
+            date = datetime.date(year, month, day)
+        except:
+            print "Not a valid date, year/month/day"
+            continue
+
+        try:
+            cashflow = float(cashflow)
+        except:
+            print "Not a valid cashflow"
+            continue
+
+        cashflows.append( (date, cashflow) )
+    else:
+        if cashflows:
+           break
+        usage()
+
+print "-------Registered cashflows------"
+printCashflow(cashflows)
+print "-------Calculated XIRR-----------"
+rate = financial.xirr(cashflows)
+print(str(round(rate, 4)*100) + "%")
